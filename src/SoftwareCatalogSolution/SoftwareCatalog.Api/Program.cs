@@ -16,11 +16,15 @@ var app = builder.Build(); //THE LINE IN THE SAND
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwagger(); //JSON OPEN API spec
+    app.UseSwaggerUI(); //html page - visualise
 }
 
 app.UseAuthorization();
 // trying initial commit
-app.MapControllers();
+app.MapControllers(); //this will scan your entire project for any controllers & use those attributes (httpGet,) to create a "route table" like a phone book.
+//REFLECTION - The ability to have code look at itself
 app.Run();
+
+//I WILL EXPLAIN THIS LATER
+public partial class Program { }
