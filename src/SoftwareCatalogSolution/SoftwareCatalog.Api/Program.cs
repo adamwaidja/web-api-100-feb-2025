@@ -6,25 +6,29 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// Above this line is configuring the "internals" of our API Project.
 
-//ABOVE THIS LINE IS CONFIGURING THE INTERNALS OF THE API PROJECT
+// This is saying use the "System" time provider, anywhere we need an instance of the TimeProvider
 
-var app = builder.Build(); //THE LINE IN THE SAND
 
-//EVERYTHING AFTER THIS LINE IS CONFIGUTING HOW THE WEB SERVER HANDLES INCOMING REQUESTS/RESPONSES
-
+var app = builder.Build(); // THE LINE IN THE SAND
+// Everything after this line is configuring how the web server handles incoming requests/responses
+builder.Services.AddSingleton<TimeProvider>((_) => TimeProvider.System);
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment()) // ASPNETCORE_ENVIRONMENT=Development
 {
-    app.UseSwagger(); //JSON OPEN API spec
-    app.UseSwaggerUI(); //html page - visualise
+    app.UseSwagger(); // the json OPEN API spec
+    app.UseSwaggerUI(); // GET /swagger/index.html - an html web page that lets you visualize the spec for this api.
 }
 
 app.UseAuthorization();
-// trying initial commit
-app.MapControllers(); //this will scan your entire project for any controllers & use those attributes (httpGet,) to create a "route table" like a phone book.
-//REFLECTION - The ability to have code look at itself
-app.Run();
+// Make Some Change
+app.MapControllers(); // this will scan your entire project for any controllers, use the attributes (HttpGet, etc.) to create
+// a "route table" - like a phone book. Reflection (the ability to have code look at itself)
+app.Run(); // a blocking infinite for loop.
 
-//I WILL EXPLAIN THIS LATER
+// I will explain this later if you:
+// a) don't get it
+// b) care. (it is really an unfulfilling answer)
+
 public partial class Program { }
